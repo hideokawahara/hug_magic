@@ -27,6 +27,7 @@ class _TogglePageBodyState extends State<TogglePageBody> {
   bool isOn = false;
   TapFeedBack isSelect = TapFeedBack.weak;
   ToggleColor selectColor = ToggleColor.green;
+  double toggleSize = 200;
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +38,8 @@ class _TogglePageBodyState extends State<TogglePageBody> {
       children: [
         Center(
           child: SizedBox(
-            height: 200,
-            width: 200,
+            height: toggleSize,
+            width: toggleSize,
             child: FittedBox(
               fit: BoxFit.contain,
               child: CupertinoSwitch(
@@ -67,6 +68,19 @@ class _TogglePageBodyState extends State<TogglePageBody> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: colorButtonList,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Slider(
+          value: toggleSize,
+          min: 100,
+          max: 300,
+          onChanged: (double value) {
+            setState(() {
+              toggleSize = value;
+            });
+          },
         ),
       ],
     );
