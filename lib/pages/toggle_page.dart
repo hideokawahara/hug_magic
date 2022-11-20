@@ -64,10 +64,6 @@ class _TogglePageBodyState extends State<TogglePageBody> {
               ),
             ),
           ),
-          // const SizedBox(
-          //   height: 56,
-          // ),
-          // const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: feedbackButtonList,
