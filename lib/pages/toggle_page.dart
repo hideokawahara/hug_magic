@@ -33,56 +33,75 @@ class _TogglePageBodyState extends State<TogglePageBody> {
   Widget build(BuildContext context) {
     List<Widget> feedbackButtonList = _feedbackButtonList();
     List<Widget> colorButtonList = _toggleColorList();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-          child: SizedBox(
-            height: toggleSize,
-            width: toggleSize,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: CupertinoSwitch(
-                activeColor: convertToToggleColorValue(selectColor),
-                value: isOn,
-                onChanged: (bool value) async {
-                  await tapFeedBackAction(isSelect);
-                  setState(() {
-                    isOn = value;
-                  });
-                },
+    return SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const SizedBox(
+            height: 120,
+          ),
+          Expanded(
+            child: Container(
+              constraints: const BoxConstraints.expand(),
+              child: Center(
+                child: SizedBox(
+                  height: toggleSize,
+                  width: toggleSize,
+                  child: FittedBox(
+                    fit: BoxFit.contain,
+                    child: CupertinoSwitch(
+                      activeColor: convertToToggleColorValue(selectColor),
+                      value: isOn,
+                      onChanged: (bool value) async {
+                        await tapFeedBackAction(isSelect);
+                        setState(() {
+                          isOn = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 56,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: feedbackButtonList,
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: colorButtonList,
-        ),
-        const SizedBox(
-          height: 16,
-        ),
-        Slider(
-          value: toggleSize,
-          min: 100,
-          max: 300,
-          onChanged: (double value) {
-            setState(() {
-              toggleSize = value;
-            });
-          },
-        ),
-      ],
+          // const SizedBox(
+          //   height: 56,
+          // ),
+          // const Spacer(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: feedbackButtonList,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: colorButtonList,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+            ),
+            child: Slider(
+              value: toggleSize,
+              min: 100,
+              max: 300,
+              onChanged: (double value) {
+                setState(() {
+                  toggleSize = value;
+                });
+              },
+            ),
+          ),
+          const SizedBox(
+            height: 32,
+          ),
+        ],
+      ),
     );
   }
 
