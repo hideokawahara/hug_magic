@@ -26,10 +26,71 @@ class TogglePageBody extends StatefulWidget {
 class _TogglePageBodyState extends State<TogglePageBody> {
   bool isOn = false;
   TapFeedBack isSelect = TapFeedBack.weak;
+  ToggleColor selectColor = ToggleColor.green;
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> buttonList = TapFeedBack.values.map((select) {
+    List<Widget> feedbackButtonList = _feedbackButtonList();
+    List<Widget> colorButtonList = _toggleColorList();
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Center(
+          child: SizedBox(
+            height: 200,
+            width: 200,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: CupertinoSwitch(
+                activeColor: convertToToggleColorValue(selectColor),
+                value: isOn,
+                onChanged: (bool value) async {
+                  await tapFeedBackAction(isSelect);
+                  setState(() {
+                    isOn = value;
+                  });
+                },
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 56,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: feedbackButtonList,
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: colorButtonList,
+        ),
+      ],
+    );
+  }
+
+  Future<void> tapFeedBackAction(TapFeedBack selectFeedback) async {
+    switch (selectFeedback) {
+      case TapFeedBack.weak:
+        await HapticFeedback.selectionClick();
+        break;
+      case TapFeedBack.medium:
+        await HapticFeedback.lightImpact();
+        break;
+      case TapFeedBack.strong:
+        await HapticFeedback.heavyImpact();
+        break;
+      case TapFeedBack.vibe:
+        await HapticFeedback.vibrate();
+        break;
+    }
+  }
+
+  List<Widget> _feedbackButtonList() {
+    return TapFeedBack.values.map((select) {
       final String buttonTitle;
       switch (select) {
         case TapFeedBack.weak:
@@ -56,52 +117,48 @@ class _TogglePageBodyState extends State<TogglePageBody> {
         },
       );
     }).toList();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Center(
-          child: SizedBox(
-            height: 200,
-            width: 200,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: CupertinoSwitch(
-                value: isOn,
-                onChanged: (bool value) async {
-                  await tapFeedBackAction(isSelect);
-                  setState(() {
-                    isOn = value;
-                  });
-                },
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: 56,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: buttonList,
-        ),
-      ],
-    );
   }
 
-  Future<void> tapFeedBackAction(TapFeedBack selectFeedback) async {
-    switch (selectFeedback) {
-      case TapFeedBack.weak:
-        await HapticFeedback.selectionClick();
-        break;
-      case TapFeedBack.medium:
-        await HapticFeedback.lightImpact();
-        break;
-      case TapFeedBack.strong:
-        await HapticFeedback.heavyImpact();
-        break;
-      case TapFeedBack.vibe:
-        await HapticFeedback.vibrate();
-        break;
+  List<Widget> _toggleColorList() {
+    return ToggleColor.values.map((color) {
+      final String buttonTitle;
+      switch (color) {
+        case ToggleColor.green:
+          buttonTitle = '緑';
+          break;
+        case ToggleColor.blue:
+          buttonTitle = '青';
+          break;
+        case ToggleColor.red:
+          buttonTitle = '赤';
+          break;
+        case ToggleColor.pink:
+          buttonTitle = '桃';
+          break;
+      }
+      return FloatingActionButton(
+        heroTag: buttonTitle,
+        backgroundColor: selectColor == color ? Colors.grey : null,
+        child: Text(buttonTitle),
+        onPressed: () {
+          setState(() {
+            selectColor = color;
+          });
+        },
+      );
+    }).toList();
+  }
+
+  Color convertToToggleColorValue(ToggleColor color) {
+    switch (color) {
+      case ToggleColor.green:
+        return Colors.green;
+      case ToggleColor.blue:
+        return Colors.blue;
+      case ToggleColor.red:
+        return Colors.red;
+      case ToggleColor.pink:
+        return Colors.pink;
     }
   }
 }
@@ -111,4 +168,11 @@ enum TapFeedBack {
   medium,
   strong,
   vibe,
+}
+
+enum ToggleColor {
+  green,
+  blue,
+  red,
+  pink,
 }
