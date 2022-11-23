@@ -36,114 +36,116 @@ class _TogglePageBodyState extends State<TogglePageBody> {
     List<Widget> feedbackButtonList = _feedbackButtonList();
     List<Widget> colorButtonList = _toggleColorList();
     return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(
-            height: 80,
-          ),
-          Expanded(
-            child: Container(
-              constraints: const BoxConstraints.expand(),
-              child: Center(
-                child: SizedBox(
-                  height: toggleSize,
-                  width: toggleSize,
-                  child: FittedBox(
-                    fit: BoxFit.contain,
-                    child: CupertinoSwitch(
-                      activeColor: convertToToggleColorValue(selectColor),
-                      value: isOn,
-                      onChanged: (bool value) async {
-                        await tapFeedBackAction(isSelect);
-                        setState(() {
-                          isOn = value;
-                        });
-                        if (value == false && popUpStatus) {
-                          bool result = await customPopUp(
-                            rootContext: context,
-                            messageText: controller.value.text,
-                            isAble: popUpStatus,
-                          );
-                          if (result == false) {
-                            setState(() {
-                              isOn = !isOn;
-                            });
+      child: SingleChildScrollView(
+        clipBehavior: Clip.none,
+        child: SizedBox(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 80,
+              ),
+              SizedBox(
+                height: 200,
+                child: Center(
+                  child: SizedBox(
+                    height: toggleSize,
+                    width: toggleSize,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: CupertinoSwitch(
+                        activeColor: convertToToggleColorValue(selectColor),
+                        value: isOn,
+                        onChanged: (bool value) async {
+                          await tapFeedBackAction(isSelect);
+                          setState(() {
+                            isOn = value;
+                          });
+                          if (value == false && popUpStatus) {
+                            bool result = await customPopUp(
+                              rootContext: context,
+                              messageText: controller.value.text,
+                              isAble: popUpStatus,
+                            );
+                            if (result == false) {
+                              setState(() {
+                                isOn = !isOn;
+                              });
+                            }
                           }
-                        }
-                      },
+                        },
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: feedbackButtonList,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: colorButtonList,
-          ),
-          const SizedBox(
-            height: 16,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-            ),
-            child: Slider(
-              value: toggleSize,
-              min: 100,
-              max: 300,
-              onChanged: (double value) {
-                setState(() {
-                  toggleSize = value;
-                });
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('ポップアップ'),
-                CupertinoSwitch(
-                  value: popUpStatus,
-                  onChanged: (bool value) async {
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: feedbackButtonList,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: colorButtonList,
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                child: Slider(
+                  value: toggleSize,
+                  min: 100,
+                  max: 300,
+                  onChanged: (double value) {
                     setState(() {
-                      popUpStatus = value;
+                      toggleSize = value;
                     });
                   },
                 ),
-              ],
-            ),
-          ),
-          if (popUpStatus)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  const Text('メッセージ文'),
-                  TextFormField(
-                    controller: controller,
-                  ),
-                ],
               ),
-            ),
-        ],
+              const SizedBox(
+                height: 32,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('ポップアップ'),
+                    CupertinoSwitch(
+                      value: popUpStatus,
+                      onChanged: (bool value) async {
+                        setState(() {
+                          popUpStatus = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              if (popUpStatus)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      const Text('メッセージ文'),
+                      TextFormField(
+                        controller: controller,
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
     );
   }
