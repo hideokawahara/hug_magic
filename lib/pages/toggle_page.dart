@@ -29,6 +29,7 @@ class _TogglePageBodyState extends State<TogglePageBody> {
   ToggleColor selectColor = ToggleColor.green;
   double toggleSize = 200;
   bool popUpStatus = false;
+  var controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +59,10 @@ class _TogglePageBodyState extends State<TogglePageBody> {
                         setState(() {
                           isOn = value;
                         });
-                        if (value && popUpStatus) {
+                        if (value == false && popUpStatus) {
                           bool result = await customPopUp(
                             rootContext: context,
+                            messageText: controller.value.text,
                             isAble: popUpStatus,
                           );
                           if (result == false) {
@@ -125,6 +127,22 @@ class _TogglePageBodyState extends State<TogglePageBody> {
               ],
             ),
           ),
+          if (popUpStatus)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  const Text('メッセージ文'),
+                  TextFormField(
+                    controller: controller,
+                  ),
+                ],
+              ),
+            ),
         ],
       ),
     );
@@ -133,6 +151,7 @@ class _TogglePageBodyState extends State<TogglePageBody> {
   Future<bool> customPopUp({
     required BuildContext rootContext,
     required bool isAble,
+    required String messageText,
   }) async {
     if (isAble == false) {
       return false;
@@ -141,20 +160,20 @@ class _TogglePageBodyState extends State<TogglePageBody> {
             context: rootContext,
             builder: (BuildContext subContext) {
               return CupertinoActionSheet(
-                message: Text('メッセージ'),
+                message: Text(messageText),
                 actions: [
                   CupertinoActionSheetAction(
                     onPressed: () {
                       Navigator.of(subContext).pop(true);
                     },
-                    child: Text('something'),
+                    child: const Text('オフにする'),
                   ),
                 ],
                 cancelButton: CupertinoActionSheetAction(
                   onPressed: () {
                     Navigator.of(subContext).pop(false);
                   },
-                  child: Text('キャンセル'),
+                  child: const Text('キャンセル'),
                 ),
               );
             }) ??
