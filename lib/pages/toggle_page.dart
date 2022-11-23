@@ -28,6 +28,7 @@ class _TogglePageBodyState extends State<TogglePageBody> {
   TapFeedBack isSelect = TapFeedBack.weak;
   ToggleColor selectColor = ToggleColor.green;
   double toggleSize = 200;
+  bool popUpStatus = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class _TogglePageBodyState extends State<TogglePageBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(
-            height: 120,
+            height: 80,
           ),
           Expanded(
             child: Container(
@@ -57,6 +58,17 @@ class _TogglePageBodyState extends State<TogglePageBody> {
                         setState(() {
                           isOn = value;
                         });
+                        if (value && popUpStatus) {
+                          bool result = await customPopUp(
+                            rootContext: context,
+                            isAble: popUpStatus,
+                          );
+                          if (result == false) {
+                            setState(() {
+                              isOn = !isOn;
+                            });
+                          }
+                        }
                       },
                     ),
                   ),
@@ -96,9 +108,57 @@ class _TogglePageBodyState extends State<TogglePageBody> {
           const SizedBox(
             height: 32,
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text('ポップアップ'),
+                CupertinoSwitch(
+                  value: popUpStatus,
+                  onChanged: (bool value) async {
+                    setState(() {
+                      popUpStatus = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future<bool> customPopUp({
+    required BuildContext rootContext,
+    required bool isAble,
+  }) async {
+    if (isAble == false) {
+      return false;
+    }
+    return await showCupertinoModalPopup<bool>(
+            context: rootContext,
+            builder: (BuildContext subContext) {
+              return CupertinoActionSheet(
+                message: Text('メッセージ'),
+                actions: [
+                  CupertinoActionSheetAction(
+                    onPressed: () {
+                      Navigator.of(subContext).pop(true);
+                    },
+                    child: Text('something'),
+                  ),
+                ],
+                cancelButton: CupertinoActionSheetAction(
+                  onPressed: () {
+                    Navigator.of(subContext).pop(false);
+                  },
+                  child: Text('キャンセル'),
+                ),
+              );
+            }) ??
+        false;
   }
 
   Future<void> tapFeedBackAction(TapFeedBack selectFeedback) async {
