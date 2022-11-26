@@ -21,7 +21,9 @@ class _PullToRefreshPageState extends State<PullToRefreshPage> {
       endDrawer: Drawer(
         child: settingList(context),
       ),
-      body: const PullToRefreshPageBody(),
+      body: PullToRefreshPageBody(
+        seconds: seconds,
+      ),
     );
   }
 
@@ -81,7 +83,11 @@ class _PullToRefreshPageState extends State<PullToRefreshPage> {
 }
 
 class PullToRefreshPageBody extends StatefulWidget {
-  const PullToRefreshPageBody({Key? key}) : super(key: key);
+  const PullToRefreshPageBody({
+    Key? key,
+    required this.seconds,
+  }) : super(key: key);
+  final int seconds;
 
   @override
   State<PullToRefreshPageBody> createState() => _PullToRefreshPageBodyState();
@@ -98,8 +104,8 @@ class _PullToRefreshPageBodyState extends State<PullToRefreshPageBody> {
           itemCount = 0;
         });
         await Future.delayed(
-          const Duration(
-            seconds: 2,
+          Duration(
+            seconds: widget.seconds,
           ),
         );
         setState(() {
