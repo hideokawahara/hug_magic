@@ -1,34 +1,32 @@
 //Packages
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //ViewModels
-import 'package:hug_magic/view_models/list_view_model.dart';
+import 'package:hug_magic/view_models/main_riverpod.dart';
 
 class ListPage extends StatelessWidget {
   const ListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ListViewModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Hug Magic'),
-        ),
-        body: const ListPageBody(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Hug Magic'),
       ),
+      body: const ListPageBody(),
     );
   }
 }
 
-class ListPageBody extends StatelessWidget {
+class ListPageBody extends ConsumerWidget {
   const ListPageBody({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> list =
-        Provider.of<ListViewModel>(context, listen: false).list;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final List<Map<String, dynamic>> list = ref.watch(
+      ContentsProvider.contentsProvider,
+    );
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
