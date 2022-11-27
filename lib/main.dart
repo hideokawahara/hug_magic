@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/home',
       routes: {
-        '/home': (_) => const ListPage(),
+        '/home': (_) => ListPage(),
       },
     );
   }

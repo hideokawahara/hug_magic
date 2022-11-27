@@ -5,30 +5,36 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 //ViewModels
 import 'package:hug_magic/view_models/main_riverpod.dart';
 
-class ListPage extends StatelessWidget {
-  const ListPage({Key? key}) : super(key: key);
+class ListPage extends ConsumerWidget {
+  ListPage({Key? key}) : super(key: key);
 
+  final contentNotifierProvider = ContentsViewModel.contentNotifierProvider;
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hug Magic'),
       ),
       body: ListPageBody(),
+      floatingActionButton: FloatingActionButton(
+        child: Text(
+          ref.watch(contentNotifierProvider).count.toString(),
+        ),
+        onPressed: () {
+          ref.read(contentNotifierProvider.notifier).increment();
+        },
+      ),
     );
   }
 }
 
 class ListPageBody extends ConsumerWidget {
   ListPageBody({Key? key}) : super(key: key);
-
-  final contentNotifierProvider =
-      StateNotifierProvider<ContentsNotifier, List<Map<String, dynamic>>>(
-    (ref) => ContentsNotifier(),
-  );
+  final contentNotifierProvider = ContentsViewModel.contentNotifierProvider;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Map<String, dynamic>> list = ref.watch(contentNotifierProvider);
+    final state = ref.watch(contentNotifierProvider);
+    final List<Map<String, dynamic>> list = state.contents;
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
