@@ -14,19 +14,21 @@ class ListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Hug Magic'),
       ),
-      body: const ListPageBody(),
+      body: ListPageBody(),
     );
   }
 }
 
 class ListPageBody extends ConsumerWidget {
-  const ListPageBody({Key? key}) : super(key: key);
+  ListPageBody({Key? key}) : super(key: key);
 
+  final contentNotifierProvider =
+      StateNotifierProvider<ContentsNotifier, List<Map<String, dynamic>>>(
+    (ref) => ContentsNotifier(),
+  );
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final List<Map<String, dynamic>> list = ref.watch(
-      ContentsProvider.contentsProvider,
-    );
+    final List<Map<String, dynamic>> list = ref.watch(contentNotifierProvider);
     return ListView.builder(
       itemCount: list.length,
       itemBuilder: (BuildContext context, int index) {
