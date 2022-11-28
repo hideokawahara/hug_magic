@@ -115,9 +115,16 @@ class _TogglePageBodyState extends State<TogglePageBody> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text('ポップアップ'),
+                    const Text(
+                      'ポップアップ',
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     CupertinoSwitch(
                       value: popUpStatus,
+                      activeColor: convertToToggleColorValue(selectColor),
                       onChanged: (bool value) async {
                         setState(() {
                           popUpStatus = value;
@@ -136,7 +143,13 @@ class _TogglePageBodyState extends State<TogglePageBody> {
                       const SizedBox(
                         height: 16,
                       ),
-                      const Text('メッセージ文'),
+                      const Text(
+                        'メッセージ文',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       TextFormField(
                         controller: controller,
                       ),
