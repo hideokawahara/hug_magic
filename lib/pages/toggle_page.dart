@@ -29,7 +29,7 @@ class _TogglePageBodyState extends State<TogglePageBody> {
   ToggleColor selectColor = ToggleColor.green;
   double toggleSize = 200;
   bool popUpStatus = false;
-  var controller = TextEditingController();
+  var controller = TextEditingController(text: 'オフにしてもいいでしょうか？');
 
   @override
   Widget build(BuildContext context) {
@@ -150,8 +150,25 @@ class _TogglePageBodyState extends State<TogglePageBody> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      const SizedBox(
+                        height: 8,
+                      ),
                       TextFormField(
                         controller: controller,
+                        decoration: InputDecoration(
+                          hintText: 'メッセージを入力使用',
+                          fillColor: convertToToggleColorValue(selectColor)
+                              .withOpacity(
+                            0.3,
+                          ),
+                          filled: true,
+                          isDense: true,
+                          prefixIcon: const Icon(Icons.keyboard),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
                       ),
                     ],
                   ),
