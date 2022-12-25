@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:hug_magic/pages/map_page.dart';
 import 'package:hug_magic/pages/toggle_page.dart';
 import 'package:hug_magic/pages/pull_to_refresh_page.dart';
+import 'package:hug_magic/pages/game_page.dart';
 
 class ContentsState {
   List<Map<String, dynamic>> contents = [
@@ -28,6 +29,11 @@ class ContentsState {
       'name': '地図',
       'page': const MapPage(),
       'icon': const Icon(Icons.maps_home_work),
+    },
+    {
+      'name': 'ゲーム',
+      'page': const GamePage(),
+      'icon': const Icon(Icons.gamepad),
     },
   ];
   final int count;
