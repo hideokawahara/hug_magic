@@ -33,6 +33,16 @@ class _GamePageBodyState extends State<GamePageBody> {
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        characterWidget(),
+        scripLineWidget(),
+      ],
+    );
+  }
+
+  Widget scripLineWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -118,6 +128,32 @@ class _GamePageBodyState extends State<GamePageBody> {
                 ),
             ],
           ),
+        ),
+      ],
+    );
+  }
+
+  Widget characterWidget() {
+    return Column(
+      children: [
+        Container(
+          width: 200,
+          height: 200,
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+            shape: BoxShape.circle,
+          ),
+          child: const FittedBox(
+            fit: BoxFit.cover,
+            child: Icon(
+              Icons.face_retouching_natural,
+            ),
+          ),
+        ),
+        Container(
+          height: 200,
+          width: 100,
+          color: Colors.blue,
         ),
       ],
     );
