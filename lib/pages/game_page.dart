@@ -34,7 +34,18 @@ class _GamePageBodyState extends State<GamePageBody> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        characterWidget(),
+        Row(
+          children: [
+            characterWidget(
+              color: Colors.blue,
+              icon: Icons.face_retouching_natural,
+            ),
+            characterWidget(
+              color: Colors.pinkAccent,
+              icon: Icons.face_sharp,
+            ),
+          ],
+        ),
         scripLineWidget(),
       ],
     );
@@ -61,7 +72,7 @@ class _GamePageBodyState extends State<GamePageBody> {
             ),
           ),
           child: const Text(
-            'Name',
+            '主人公太郎くん',
             style: TextStyle(
               color: Colors.white,
               fontSize: 18,
@@ -133,27 +144,30 @@ class _GamePageBodyState extends State<GamePageBody> {
     );
   }
 
-  Widget characterWidget() {
+  Widget characterWidget({
+    required Color color,
+    required IconData icon,
+  }) {
     return Column(
       children: [
         Container(
           width: 200,
           height: 200,
-          decoration: const BoxDecoration(
-            color: Colors.blue,
+          decoration: BoxDecoration(
+            color: color,
             shape: BoxShape.circle,
           ),
-          child: const FittedBox(
+          child: FittedBox(
             fit: BoxFit.cover,
             child: Icon(
-              Icons.face_retouching_natural,
+              icon,
             ),
           ),
         ),
         Container(
           height: 200,
           width: 100,
-          color: Colors.blue,
+          color: color,
         ),
       ],
     );
