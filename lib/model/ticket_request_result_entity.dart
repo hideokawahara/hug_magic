@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hug_magic/model/user.dart';
 
 part 'ticket_request_result_entity.freezed.dart';
 part 'ticket_request_result_entity.g.dart';
@@ -49,11 +50,36 @@ abstract class TestRequestResultEntity with _$TestRequestResultEntity {
     required TestAuditEntity audit,
 
     @TestCommentEntityConverter() required TestCommentEntity comment,
+    Map<String, dynamic>? why,
   }) = _TestRequestResultEntity;
 
   factory TestRequestResultEntity.fromJson(Map<String, dynamic> json) => _$TestRequestResultEntityFromJson(json);
 
 }
+
+// class Test implements TestRequestResultEntity {
+//   @override
+//   // TODO: implement audit
+//   TestAuditEntity get audit => throw UnimplementedError();
+//
+//   @override
+//   // TODO: implement comment
+//   TestCommentEntity get comment => throw UnimplementedError();
+//
+//   @override
+//   // TODO: implement copyWith
+//   $TestRequestResultEntityCopyWith<TestRequestResultEntity> get copyWith => throw UnimplementedError();
+//
+//   @override
+//   // TODO: implement ticket
+//   TestEntity get ticket => throw UnimplementedError();
+//
+//   @override
+//   Map<String, dynamic> toJson() {
+//     // TODO: implement toJson
+//     throw UnimplementedError();
+//   }
+// }
 
 class TestEntityConverter implements JsonConverter<TestEntity, Map<String, dynamic>> {
   const TestEntityConverter();
@@ -105,3 +131,25 @@ class TestCommentEntityConverter implements JsonConverter<TestCommentEntity, Map
   }
 
 }
+
+
+// class Gaku extends User {
+//   Gaku() : super._();
+//   @override
+//   // TODO: implement copyWith
+//   $UserCopyWith<User> get copyWith => throw UnimplementedError();
+//
+//   @override
+//   // TODO: implement id
+//   int get id => throw UnimplementedError();
+//
+//   @override
+//   // TODO: implement name
+//   String get name => throw UnimplementedError();
+//
+//   @override
+//   Map<String, dynamic> toJson() {
+//     // TODO: implement toJson
+//     throw UnimplementedError();
+//   }
+// }

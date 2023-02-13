@@ -27,6 +27,7 @@ mixin _$TestRequestResultEntity {
   TestAuditEntity get audit => throw _privateConstructorUsedError;
   @TestCommentEntityConverter()
   TestCommentEntity get comment => throw _privateConstructorUsedError;
+  Map<String, dynamic>? get why => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,7 +44,8 @@ abstract class $TestRequestResultEntityCopyWith<$Res> {
   $Res call(
       {@TestEntityConverter() TestEntity ticket,
       @TestAuditEntityConverter() TestAuditEntity audit,
-      @TestCommentEntityConverter() TestCommentEntity comment});
+      @TestCommentEntityConverter() TestCommentEntity comment,
+      Map<String, dynamic>? why});
 }
 
 /// @nodoc
@@ -63,6 +65,7 @@ class _$TestRequestResultEntityCopyWithImpl<$Res,
     Object? ticket = null,
     Object? audit = null,
     Object? comment = null,
+    Object? why = freezed,
   }) {
     return _then(_value.copyWith(
       ticket: null == ticket
@@ -77,6 +80,10 @@ class _$TestRequestResultEntityCopyWithImpl<$Res,
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as TestCommentEntity,
+      why: freezed == why
+          ? _value.why
+          : why // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ) as $Val);
   }
 }
@@ -92,7 +99,8 @@ abstract class _$$_TestRequestResultEntityCopyWith<$Res>
   $Res call(
       {@TestEntityConverter() TestEntity ticket,
       @TestAuditEntityConverter() TestAuditEntity audit,
-      @TestCommentEntityConverter() TestCommentEntity comment});
+      @TestCommentEntityConverter() TestCommentEntity comment,
+      Map<String, dynamic>? why});
 }
 
 /// @nodoc
@@ -110,6 +118,7 @@ class __$$_TestRequestResultEntityCopyWithImpl<$Res>
     Object? ticket = null,
     Object? audit = null,
     Object? comment = null,
+    Object? why = freezed,
   }) {
     return _then(_$_TestRequestResultEntity(
       ticket: null == ticket
@@ -124,6 +133,10 @@ class __$$_TestRequestResultEntityCopyWithImpl<$Res>
           ? _value.comment
           : comment // ignore: cast_nullable_to_non_nullable
               as TestCommentEntity,
+      why: freezed == why
+          ? _value._why
+          : why // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ));
   }
 }
@@ -134,7 +147,9 @@ class _$_TestRequestResultEntity implements _TestRequestResultEntity {
   const _$_TestRequestResultEntity(
       {@TestEntityConverter() required this.ticket,
       @TestAuditEntityConverter() required this.audit,
-      @TestCommentEntityConverter() required this.comment});
+      @TestCommentEntityConverter() required this.comment,
+      final Map<String, dynamic>? why})
+      : _why = why;
 
   factory _$_TestRequestResultEntity.fromJson(Map<String, dynamic> json) =>
       _$$_TestRequestResultEntityFromJson(json);
@@ -148,10 +163,19 @@ class _$_TestRequestResultEntity implements _TestRequestResultEntity {
   @override
   @TestCommentEntityConverter()
   final TestCommentEntity comment;
+  final Map<String, dynamic>? _why;
+  @override
+  Map<String, dynamic>? get why {
+    final value = _why;
+    if (value == null) return null;
+    if (_why is EqualUnmodifiableMapView) return _why;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString() {
-    return 'TestRequestResultEntity(ticket: $ticket, audit: $audit, comment: $comment)';
+    return 'TestRequestResultEntity(ticket: $ticket, audit: $audit, comment: $comment, why: $why)';
   }
 
   @override
@@ -161,12 +185,14 @@ class _$_TestRequestResultEntity implements _TestRequestResultEntity {
             other is _$_TestRequestResultEntity &&
             (identical(other.ticket, ticket) || other.ticket == ticket) &&
             (identical(other.audit, audit) || other.audit == audit) &&
-            (identical(other.comment, comment) || other.comment == comment));
+            (identical(other.comment, comment) || other.comment == comment) &&
+            const DeepCollectionEquality().equals(other._why, _why));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, ticket, audit, comment);
+  int get hashCode => Object.hash(runtimeType, ticket, audit, comment,
+      const DeepCollectionEquality().hash(_why));
 
   @JsonKey(ignore: true)
   @override
@@ -186,13 +212,10 @@ class _$_TestRequestResultEntity implements _TestRequestResultEntity {
 
 abstract class _TestRequestResultEntity implements TestRequestResultEntity {
   const factory _TestRequestResultEntity(
-          {@TestEntityConverter()
-              required final TestEntity ticket,
-          @TestAuditEntityConverter()
-              required final TestAuditEntity audit,
-          @TestCommentEntityConverter()
-              required final TestCommentEntity comment}) =
-      _$_TestRequestResultEntity;
+      {@TestEntityConverter() required final TestEntity ticket,
+      @TestAuditEntityConverter() required final TestAuditEntity audit,
+      @TestCommentEntityConverter() required final TestCommentEntity comment,
+      final Map<String, dynamic>? why}) = _$_TestRequestResultEntity;
 
   factory _TestRequestResultEntity.fromJson(Map<String, dynamic> json) =
       _$_TestRequestResultEntity.fromJson;
@@ -206,6 +229,8 @@ abstract class _TestRequestResultEntity implements TestRequestResultEntity {
   @override
   @TestCommentEntityConverter()
   TestCommentEntity get comment;
+  @override
+  Map<String, dynamic>? get why;
   @override
   @JsonKey(ignore: true)
   _$$_TestRequestResultEntityCopyWith<_$_TestRequestResultEntity>

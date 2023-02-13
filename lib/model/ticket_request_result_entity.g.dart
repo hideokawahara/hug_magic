@@ -15,6 +15,7 @@ _$_TestRequestResultEntity _$$_TestRequestResultEntityFromJson(
           .fromJson(json['audit'] as Map<String, dynamic>),
       comment: const TestCommentEntityConverter()
           .fromJson(json['comment'] as Map<String, dynamic>),
+      why: json['why'] as Map<String, dynamic>?,
     );
 
 Map<String, dynamic> _$$_TestRequestResultEntityToJson(
@@ -23,4 +24,5 @@ Map<String, dynamic> _$$_TestRequestResultEntityToJson(
       'ticket': const TestEntityConverter().toJson(instance.ticket),
       'audit': const TestAuditEntityConverter().toJson(instance.audit),
       'comment': const TestCommentEntityConverter().toJson(instance.comment),
+      'why': instance.why,
     };

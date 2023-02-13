@@ -22,6 +22,11 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  @JsonKey(name: 'why')
+  Map<String, dynamic>? get why => throw _privateConstructorUsedError;
+  @JsonSerializable(anyMap: false)
+  @JsonKey(name: 'why2')
+  Map<String, dynamic>? get why2 => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +38,14 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {int id,
+      String name,
+      @JsonKey(name: 'why')
+          Map<String, dynamic>? why,
+      @JsonSerializable(anyMap: false)
+      @JsonKey(name: 'why2')
+          Map<String, dynamic>? why2});
 }
 
 /// @nodoc
@@ -51,6 +63,8 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? why = freezed,
+    Object? why2 = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -61,6 +75,14 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      why: freezed == why
+          ? _value.why
+          : why // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      why2: freezed == why2
+          ? _value.why2
+          : why2 // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ) as $Val);
   }
 }
@@ -71,7 +93,14 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name});
+  $Res call(
+      {int id,
+      String name,
+      @JsonKey(name: 'why')
+          Map<String, dynamic>? why,
+      @JsonSerializable(anyMap: false)
+      @JsonKey(name: 'why2')
+          Map<String, dynamic>? why2});
 }
 
 /// @nodoc
@@ -85,6 +114,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? why = freezed,
+    Object? why2 = freezed,
   }) {
     return _then(_$_User(
       id: null == id
@@ -95,14 +126,33 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      why: freezed == why
+          ? _value._why
+          : why // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
+      why2: freezed == why2
+          ? _value._why2
+          : why2 // ignore: cast_nullable_to_non_nullable
+              as Map<String, dynamic>?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(anyMap: true)
 class _$_User extends _User with DiagnosticableTreeMixin {
-  const _$_User({required this.id, required this.name}) : super._();
+  const _$_User(
+      {required this.id,
+      required this.name,
+      @JsonKey(name: 'why')
+          final Map<String, dynamic>? why,
+      @JsonSerializable(anyMap: false)
+      @JsonKey(name: 'why2')
+          final Map<String, dynamic>? why2})
+      : _why = why,
+        _why2 = why2,
+        super._();
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -110,10 +160,32 @@ class _$_User extends _User with DiagnosticableTreeMixin {
   final int id;
   @override
   final String name;
+  final Map<String, dynamic>? _why;
+  @override
+  @JsonKey(name: 'why')
+  Map<String, dynamic>? get why {
+    final value = _why;
+    if (value == null) return null;
+    if (_why is EqualUnmodifiableMapView) return _why;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
+  final Map<String, dynamic>? _why2;
+  @override
+  @JsonSerializable(anyMap: false)
+  @JsonKey(name: 'why2')
+  Map<String, dynamic>? get why2 {
+    final value = _why2;
+    if (value == null) return null;
+    if (_why2 is EqualUnmodifiableMapView) return _why2;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(id: $id, name: $name)';
+    return 'User(id: $id, name: $name, why: $why, why2: $why2)';
   }
 
   @override
@@ -122,7 +194,9 @@ class _$_User extends _User with DiagnosticableTreeMixin {
     properties
       ..add(DiagnosticsProperty('type', 'User'))
       ..add(DiagnosticsProperty('id', id))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('why', why))
+      ..add(DiagnosticsProperty('why2', why2));
   }
 
   @override
@@ -131,12 +205,19 @@ class _$_User extends _User with DiagnosticableTreeMixin {
         (other.runtimeType == runtimeType &&
             other is _$_User &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality().equals(other._why, _why) &&
+            const DeepCollectionEquality().equals(other._why2, _why2));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      const DeepCollectionEquality().hash(_why),
+      const DeepCollectionEquality().hash(_why2));
 
   @JsonKey(ignore: true)
   @override
@@ -153,8 +234,14 @@ class _$_User extends _User with DiagnosticableTreeMixin {
 }
 
 abstract class _User extends User {
-  const factory _User({required final int id, required final String name}) =
-      _$_User;
+  const factory _User(
+      {required final int id,
+      required final String name,
+      @JsonKey(name: 'why')
+          final Map<String, dynamic>? why,
+      @JsonSerializable(anyMap: false)
+      @JsonKey(name: 'why2')
+          final Map<String, dynamic>? why2}) = _$_User;
   const _User._() : super._();
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
@@ -163,6 +250,13 @@ abstract class _User extends User {
   int get id;
   @override
   String get name;
+  @override
+  @JsonKey(name: 'why')
+  Map<String, dynamic>? get why;
+  @override
+  @JsonSerializable(anyMap: false)
+  @JsonKey(name: 'why2')
+  Map<String, dynamic>? get why2;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
