@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 //Pages
 import 'package:hug_magic/pages/map_page.dart';
+import 'package:hug_magic/pages/terminal_page.dart';
 import 'package:hug_magic/pages/toggle_page.dart';
 import 'package:hug_magic/pages/pull_to_refresh_page.dart';
 import 'package:hug_magic/pages/game_page.dart';
@@ -35,6 +36,13 @@ class ContentsState {
       'page': const GamePage(),
       'icon': const Icon(Icons.gamepad),
     },
+    {
+      'name': 'dartターミナル',
+      'page': const TerminalPage(),
+      'icon': const Icon(
+        Icons.terminal,
+      ),
+    }
   ];
   final int count;
 
